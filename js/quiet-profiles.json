@@ -86,12 +86,12 @@
         "mod_scheme": "gmsk",
         "frame_length":19 ,
         "modulation": {
-            "center_frequency": 12550,
+            "center_frequency": 10550,
             "gain": 0.5
         },
         "interpolation": {
-            "samples_per_symbol": 19,
-            "symbol_delay": 20,
+            "samples_per_symbol": 22,
+            "symbol_delay": 25,
             "excess_bandwidth": 0.5
         },
         "encoder_filters": {
