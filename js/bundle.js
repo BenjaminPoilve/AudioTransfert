@@ -15193,6 +15193,22 @@ var TextTransmitter = (function() {
                               btn.addEventListener('click', onClick, false);
                           });
                           });
+                    var el = document.getElementById('uploadID');
+                    console.log(el);
+                     el.onchange = function(){
+                            console.log("hashing");
+                            console.log(el.files);
+                            client.seed( el.files[0], function (torrent) {
+                               payload = torrent.magnetURI.split(':')[3];
+                              payload= payload.split('&')[0];
+                              console.log('Client is seeding ' + payload)
+                              if (payload === "") {
+                                  return;
+                              }
+                              btn.addEventListener('click', onClick, false);
+                          });
+
+                      };
                     Quiet.addReadyCallback(onQuietReady, onQuietFail);
                 };
 
