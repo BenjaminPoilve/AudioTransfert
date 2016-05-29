@@ -13,6 +13,8 @@ var transmit;
 
 
 
+
+
 var TextTransmitter = (function() {
           Quiet.setProfilesPrefix("/js/");
           Quiet.setMemoryInitializerPrefix("/js/");
@@ -20,11 +22,10 @@ var TextTransmitter = (function() {
 
 
           function onTransmitFinish() {
+              btn = document.querySelector("#emit");
               btn.addEventListener('click', onClick, false);
               btn.disabled = false;
-              var originalText = btn.innerText;
-              btn.innerText = btn.getAttribute('data-quiet-sending-text');
-              btn.setAttribute('data-quiet-sending-text', originalText);
+              document.querySelector( "#emit-label" ).innerText="Re-Emit";
           };
 
           function onClick(e) {
@@ -51,37 +52,58 @@ var TextTransmitter = (function() {
           };
 
           function onDOMLoad() {
-                    btn = document.querySelector('[data-quiet-send-button]');
-                    textbox = document.querySelector('[data-quiet-text-input]');
-                    warningbox = document.querySelector('[data-quiet-warning]');
-                    dragDrop('body', function (files) {
-                            console.log("hashing");
-                            client.seed(files, function (torrent) {
-                               payload = torrent.magnetURI.split(':')[3];
-                              payload= payload.split('&')[0];
-                              console.log('Client is seeding ' + payload)
-                              if (payload === "") {
-                                  return;
-                              }
-                              btn.addEventListener('click', onClick, false);
-                          });
-                          });
-                    var el = document.getElementById('uploadID');
-                    console.log(el);
-                     el.onchange = function(){
-                            console.log("hashing");
-                            console.log(el.files);
-                            client.seed( el.files[0], function (torrent) {
-                               payload = torrent.magnetURI.split(':')[3];
-                              payload= payload.split('&')[0];
-                              console.log('Client is seeding ' + payload)
-                              if (payload === "") {
-                                  return;
-                              }
-                              btn.addEventListener('click', onClick, false);
-                          });
 
-                      };
+              // ajout de la classe JS à HTML
+              document.querySelector("html").classList.add('js');
+
+              // initialisation des variables
+              var fileInput  = document.querySelector( ".input-file" ),
+                  button     = document.querySelector( ".input-file-trigger" ),
+                  the_return = document.querySelector(".file-return"),
+                  spinner = document.querySelector(".spinner");
+                  loadfiles = document.querySelector("#loadFile");
+                  instruction = document.querySelector("#instruction");
+
+              // action lorsque le label est cliqué
+              button.addEventListener( "click", function( event ) {
+                 fileInput.focus();
+                 return false;
+              });
+
+              // affiche un retour visuel dès que input:file change
+              fileInput.addEventListener( "change", function( event ) {
+                  loadFile.innerHTML = '<button type="button" id="emit" style=" background: transparent;\
+                  border: none !important;\
+                  font-size:1em;" >\
+                      <label for="emit" class="input-file-trigger" tabindex="0">Hashing...</label>';
+                  instruction.innerHTML ="please wait..";
+
+                  the_return.innerHTML =this.value;
+                  spinner.innerHTML = '<img src="./img/hashLoading.gif"  style="margin-left: auto;\
+                  margin-right: auto;\
+                  display: block;" >';
+                  console.log("hashing");
+                  console.log(this.files[0]);
+                  client.seed( this.files[0], function (torrent) {
+                    payload = torrent.magnetURI.split(':')[3];
+                    payload= payload.split('&')[0];
+                     spinner.style.visibility='hidden';
+                     instruction.innerHTML ="Ready To Emit";
+                     loadFile.innerHTML = '<button type="button" id="emit" style=" background: transparent;\
+                     border: none !important;\
+                     font-size:1em;" >\
+                         <label for="emit" id= "emit-label" class="input-file-trigger" tabindex="0">Emit</label>';
+
+                    console.log('Client is seeding ' + payload)
+                    if (payload === "") {
+                        return;
+                    }
+                     btn = document.querySelector("#emit");
+                    btn.addEventListener('click', onClick, false);
+                });
+
+              });
+
                     Quiet.addReadyCallback(onQuietReady, onQuietFail);
                 };
 

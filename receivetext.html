@@ -1,10 +1,12 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Receive Text</title>
-    <script src="js/adapter.js"></script>
+     <meta charset="UTF-8">
+   	<title>AudioTransfert</title>
+   	<meta name="viewport" content="width=device-width">
+   	<meta name="description" content="Custom Checkboxes in CSS3 an JS - Flat UI effect">
+    <link rel="stylesheet" href="./css/base.css">
+     <script src="js/adapter.js"></script>
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
     <script type="text/javascript" src="js/quiet.js"></script>
     <script type="text/javascript" src="js/receivetext.js"></script>
@@ -12,15 +14,18 @@
 
   </head>
   <body>
+       <div id="container">
     <div class="hidden" data-quiet-profile-name="audible"></div>
-    <div class="wrapper">
-      <header>
-        <h1>Receive Text</h1>
-      </header>
-      <section>
-      <div class="hidden" data-quiet-warning></div>
-      <p data-quiet-receive-text-target>Your received text will show up here. Waiting...</p>
-      </section>
+    <h1 style="width: 100%">Receive a file</h1>
+
+    <h2 style="width: 100%" data-quiet-receive-text-target id="instruction">Waiting for transmission</h2>
+    <div class="spinner"  style="text-align:center">
+
+
     </div>
+      <p class="txtcenter copy">by <a href="http://www.seed-up.io">Seed-Up</a>
+</div>
+
+
   </body>
 </html>

@@ -1,19 +1,37 @@
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Send Text</title>
+     <meta charset="UTF-8">
+  	<title>AudioTransfert</title>
+  	<meta name="viewport" content="width=device-width">
+  	<meta name="description" content="Custom Checkboxes in CSS3 an JS - Flat UI effect">
+   	<link rel="stylesheet" href="./css/base.css">
     <script src="js/adapter.js"></script>
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
     <script type="text/javascript" src="js/quiet.js"></script>
     <script type="text/javascript" src="js/bundle.js"></script>
     <script async type="text/javascript" src="js/quiet-emscripten.js"></script>
   </head>
-  <body>
 
+  <body>
     <div class="hidden" data-quiet-profile-name="audible"></div>
-    <button type="button" class="btn btn-default" style="width:100%" data-quiet-send-button data-quiet-sending-text="Sending...">Send</button>
-    <input type="file" name="someName" id="uploadID" />
+
+    <h1>Send a File</h1>
+    <h2 id="instruction">select a file to send</h2>
+    <div class="spinner">
+    </div>
+    <br>
+<form action="#">
+    <div class="input-file-container" id="loadFile">
+        <input class="input-file" id="my-file" type="file">
+        <label for="my-file" class="input-file-trigger" tabindex="0">Select a file...</label>
+
+    </div>
+
+    <p class="file-return"></p>
+</form>
+
+    <p class="txtcenter copy">by <a href="http://www.seed-up.io">Seed-Up</a>
+
 
   </body>
 </html>
