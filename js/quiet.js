@@ -11,7 +11,6 @@ var Quiet = (function() {
     // must be a power of two. we choose the absolute largest permissible value
     // we implicitly assume that the browser will play back a written buffer without any gaps
     var sampleBufferSize = 16384;
-
     // initialization flags
     var emscriptenInitialized = false;
     var profilesFetched = false;
@@ -51,7 +50,7 @@ var Quiet = (function() {
 
     // start gets our AudioContext and notifies consumers that quiet can be used
     function start() {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioCtx = new (window.AudioContext  || window.webkitAudioContext)();
         console.log(audioCtx.sampleRate);
         var len = readyCallbacks.length;
         for (var i = 0; i < len; i++) {
@@ -349,46 +348,41 @@ var Quiet = (function() {
     }
 
     function gUMConstraints() {
-        if (navigator.webkitGetUserMedia !== undefined) {
-            return {
-                audio: {
-                    echoCancellation: false
-                }
-            };
-        }
-        if (navigator.mozGetUserMedia !== undefined) {
-            return {
-                audio: {
-                    echoCancellation: false,
-                    mozAutoGainControl: false,
-                    mozNoiseSuppression: false
-                }
-            };
 
-        }
-        return {
-            audio: {
-                echoCancellation: false
-            }
-        };
+            return {
+                "audio":{
+                    "mandatory":{
+                       echoCancellation: false
+                   }
+                }
+            };
     };
 
 
     function createAudioInput() {
+        console.log("trying to create an input");
+
         audioInput = 0; // prevent others from trying to create
-        gUM.call(navigator, gUMConstraints(),
-            function(e) {
-                audioInput = audioCtx.createMediaStreamSource(e);
-
-                // stash a very permanent reference so this isn't collected
-                window.quiet_receiver_anti_gc = audioInput;
-
-                audioInputReady();
-            }, function(reason) {
-                audioInputFailed(reason.name);
-        });
+        navigator.mediaDevices.getUserMedia(
+            gUMConstraints()
+        ).then(
+          successCallback,
+          errorCallback
+        );
     };
+    function successCallback(stream) {
+        console.log("ok for stream");
+        audioInput = audioCtx.createMediaStreamSource(stream);
+        console.log(audioInput.getConstraints);
+        // stash a very permanent reference so this isn't collected
+        window.quiet_receiver_anti_gc = audioInput;
+        audioInputReady();
+}
 
+function errorCallback(error) {
+  console.log(error);
+  audioInputFailed(error);
+}
     /**
     * Callback used by receiver to notify user that a frame was received but
     * failed checksum. Frames that fail checksum are not sent to onReceive.
@@ -441,17 +435,8 @@ var Quiet = (function() {
 
         // quiet creates audioCtx when it starts but it does not create an audio input
         // getting microphone access requires a permission dialog so only ask for it if we need it
-        if (gUM === undefined) {
-            gUM = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
-        }
 
-        if (gUM === undefined) {
-            // we couldn't find a suitable getUserMedia, so fail fast
-            if (onCreateFail !== undefined) {
-                onCreateFail("getUserMedia undefined (mic not supported by browser)");
-            }
-            return;
-        }
+
 
         if (audioInput === undefined) {
             createAudioInput()
