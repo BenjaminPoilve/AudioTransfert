@@ -91,7 +91,7 @@
         },
         "interpolation": {
             "samples_per_symbol": 22,
-            "symbol_delay": 10,
+            "symbol_delay": 20,
             "excess_bandwidth": 0.35
         },
         "encoder_filters": {
