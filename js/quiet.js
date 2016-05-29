@@ -352,19 +352,7 @@ var Quiet = (function() {
         if (navigator.webkitGetUserMedia !== undefined) {
             return {
                 audio: {
-                    mandatory: [
-                      {googAutoGainControl: false},
-                      {googAutoGainControl2: false},
-                      {echoCancellation: false},
-                      {googEchoCancellation: false},
-                      {googEchoCancellation2: false},
-                      {googDAEchoCancellation: false},
-                      {googNoiseSuppression: false},
-                      {googNoiseSuppression2: false},
-                      {googHighpassFilter: false},
-                      {googTypingNoiseDetection: false},
-                      {googAudioMirroring: false}
-                    ]
+                    echoCancellation: false
                 }
             };
         }
