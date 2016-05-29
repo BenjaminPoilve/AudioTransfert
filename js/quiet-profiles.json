@@ -80,18 +80,19 @@
         }
     },
     "audible": {
+
         "checksum_scheme": "crc32",
-        "inner_fec_scheme": "v27",
+        "inner_fec_scheme": "v27p23",
         "outer_fec_scheme": "none",
         "mod_scheme": "gmsk",
-        "frame_length":19 ,
+        "frame_length":1000 ,
         "modulation": {
             "center_frequency": 11550,
-            "gain": 0.15
+            "gain": 0.5
         },
         "interpolation": {
-            "samples_per_symbol": 22,
-            "symbol_delay": 20,
+            "samples_per_symbol": 15,
+            "symbol_delay": 2,
             "excess_bandwidth": 0.35
         },
         "encoder_filters": {
