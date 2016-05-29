@@ -352,7 +352,7 @@ var Quiet = (function() {
         if (navigator.webkitGetUserMedia !== undefined) {
             return {
                 audio: {
-                    optional: [
+                    mandatory: [
                       {googAutoGainControl: false},
                       {googAutoGainControl2: false},
                       {echoCancellation: false},
