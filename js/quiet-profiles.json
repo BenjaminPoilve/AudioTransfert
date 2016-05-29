@@ -86,7 +86,7 @@
         "mod_scheme": "gmsk",
         "frame_length":19 ,
         "modulation": {
-            "center_frequency": 11550,
+            "center_frequency": 7350,
             "gain": 0.5
         },
         "interpolation": {
