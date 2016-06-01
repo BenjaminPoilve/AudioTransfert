@@ -56,7 +56,7 @@
     },
     "ultrasonic": {
         "checksum_scheme": "crc32",
-        "inner_fec_scheme": "v27",
+        "inner_fec_scheme": "v27p23",
         "outer_fec_scheme": "none",
         "mod_scheme": "gmsk",
         "frame_length": 25,
@@ -84,19 +84,19 @@
         "checksum_scheme": "crc32",
         "inner_fec_scheme": "v27p23",
         "outer_fec_scheme": "none",
-        "mod_scheme": "psk2",
-        "frame_length":1000 ,
+        "mod_scheme": "gmsk",
+        "frame_length": 25,
         "modulation": {
             "center_frequency": 7000,
-            "gain": 0.5
+            "gain": 0.15
         },
         "interpolation": {
-            "samples_per_symbol": 25,
+            "samples_per_symbol": 20,
             "symbol_delay": 2,
             "excess_bandwidth": 0.35
         },
         "encoder_filters": {
-            "dc_filter_alpha": 0.1
+            "dc_filter_alpha": 0.01
         },
         "resampler": {
             "delay": 13,
