@@ -86,7 +86,7 @@
         "outer_fec_scheme": "secded7264",
         "frame_length": 25,
         "modulation": {
-            "center_frequency": 7000,
+            "center_frequency": 2300,
             "gain": 0.08
         },
         "interpolation": {
